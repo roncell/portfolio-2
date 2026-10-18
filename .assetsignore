@@ -1,0 +1,17 @@
+# Not part of the website (Cloudflare skips these when uploading assets)
+node_modules
+.git
+.gitignore
+.wrangler
+.DS_Store
+.assetsignore
+wrangler.jsonc
+package.json
+package-lock.json
+server.mjs
+start.command
+start.log
+README.md
+netlify
+netlify.toml
+bezier/src
