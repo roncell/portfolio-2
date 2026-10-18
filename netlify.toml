@@ -1,0 +1,13 @@
+# Netlify: drag this folder onto app.netlify.com/drop (static only),
+# or connect the repo / run `npx netlify-cli deploy --prod` to include the /api/recs function.
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+[[redirects]]
+  from = "/api/recs"
+  to = "/.netlify/functions/recs"
+  status = 200

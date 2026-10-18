@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Rohan Subramaniam — Android & iOS engineer (SDE I) at Audible.">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Rohan Subramaniam</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Roboto+Flex:opsz,wght@8..144,400;8..144,500;8..144,700&display=swap">
+<style>
+/* Layout: split hero (story + live pipeline | interactive phone), then a dated timeline and a project grid. Platform toggle restyles accent, shapes and the phone itself. */
+:root{
+  --bg:#F1F4F6; --surface:#FFFFFF; --sunk:#E6EBEF; --fg:#0D1217; --muted:#56626E; --line:#D6DDE3;
+  --bezel:#16191D; --bezel-edge:#2A2F35;
+  --android-accent:#006A6E; --android-tint:#CCEDEE; --ios-accent:#0066DB; --ios-tint:#D7E7FB;
+  --warn:#9A5B00;
+  --f-display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --f-body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --f-android:"Roboto Flex", Roboto, system-ui, sans-serif;
+  --f-ios:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Figtree", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0A0D11; --surface:#121820; --sunk:#0E1319; --fg:#E5EAF0; --muted:#8C98A5; --line:#232C36;
+  --bezel:#05070A; --bezel-edge:#2B323B;
+  --android-accent:#5ED6DC; --android-tint:#12393B; --ios-accent:#3B9BFF; --ios-tint:#0F2A47;
+  --warn:#E7A94A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0A0D11; --surface:#121820; --sunk:#0E1319; --fg:#E5EAF0; --muted:#8C98A5; --line:#232C36;
+  --bezel:#05070A; --bezel-edge:#2B323B;
+  --android-accent:#5ED6DC; --android-tint:#12393B; --ios-accent:#3B9BFF; --ios-tint:#0F2A47;
+  --warn:#E7A94A; color-scheme:dark}
+
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body[data-platform="android"]{--accent:var(--android-accent);--tint:var(--android-tint);--btn-r:999px;--card-r:16px;--app-font:var(--f-android)}
+body[data-platform="ios"]{--accent:var(--ios-accent);--tint:var(--ios-tint);--btn-r:12px;--card-r:12px;--app-font:var(--f-ios)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1160px;margin:0 auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;letter-spacing:-.02em}
+.mono{font-family:var(--f-mono)}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.todo{border:1px dashed var(--warn);color:var(--warn);border-radius:6px;padding:0 6px;font-family:var(--f-mono);font-size:.85em;white-space:nowrap}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px))) 0 calc(-1 * max(16px,env(safe-area-inset-right,0px)));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top .wrap{display:flex;align-items:center;gap:20px;padding-block:12px;flex-wrap:wrap}
+.brand{font-family:var(--f-mono);font-weight:500;font-size:14px;text-decoration:none;display:flex;align-items:center;gap:8px}
+.brand i{width:9px;height:9px;border-radius:50%;background:var(--accent);display:inline-block;box-shadow:0 0 0 4px var(--tint)}
+nav.links{display:flex;gap:18px;font-size:14px;margin-left:auto}
+nav.links a{text-decoration:none;color:var(--muted)}
+nav.links a:hover{color:var(--fg)}
+.seg{display:inline-flex;background:var(--sunk);border:1px solid var(--line);border-radius:var(--btn-r);padding:3px;gap:2px}
+.seg button{all:unset;cursor:pointer;font-size:13px;font-weight:600;padding:5px 12px;border-radius:var(--btn-r);color:var(--muted);transition:background .2s,color .2s}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--accent);box-shadow:0 1px 3px rgb(0 0 0 / .12)}
+.seg button:focus-visible{outline:2px solid var(--accent)}
+.termbtn{all:unset;cursor:pointer;font-family:var(--f-mono);font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:5px 9px}
+.termbtn:hover{color:var(--fg)}
+.themebtn{all:unset;cursor:pointer;width:32px;height:32px;display:grid;place-items:center;border:1px solid var(--line);border-radius:var(--btn-r);color:var(--muted);transition:color .2s,border-color .2s}
+.themebtn:hover{color:var(--accent);border-color:var(--accent)}
+.themebtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.themebtn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media (max-width:720px){nav.links{display:none}.seg{margin-left:auto}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:48px;padding-block:56px 72px;align-items:start}
+.hero-copy{display:flex;flex-direction:column;gap:22px;min-width:0}
+.hero h1{font-size:clamp(44px,7vw,84px);line-height:.95;font-weight:800;font-variation-settings:"opsz" 96}
+.hero h1 span{color:var(--accent);transition:color .3s}
+.lede{font-size:18px;max-width:58ch;color:var(--muted);margin:0}
+.lede b{color:var(--fg);font-weight:600}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.facts li{font-size:13px;border:1px solid var(--line);background:var(--surface);border-radius:var(--btn-r);padding:5px 12px}
+.facts li b{color:var(--accent);font-weight:600}
+.ctas{display:flex;gap:10px;flex-wrap:wrap}
+.btn{all:unset;cursor:pointer;font-weight:600;font-size:15px;padding:11px 20px;border-radius:var(--btn-r);background:var(--accent);color:var(--surface);transition:transform .15s,border-radius .3s}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.btn:active{transform:scale(.97)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* pipeline panel */
+.pipe-panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--card-r);padding:18px;display:flex;flex-direction:column;gap:12px}
+.pipe-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.pipe-head h3{font-size:16px;font-weight:700}
+.chk{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);cursor:pointer;font-family:var(--f-mono)}
+.chk input{accent-color:var(--accent)}
+.pipe{position:relative;display:flex;flex-direction:column;gap:30px;padding-block:4px}
+.pipe svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.pnode{position:relative;z-index:1;width:72%;border:1px solid var(--line);background:var(--sunk);border-radius:10px;padding:9px 12px;display:flex;flex-direction:column;transition:border-color .25s,background .25s,box-shadow .25s}
+.pnode:nth-child(odd){align-self:flex-start}
+.pnode:nth-child(even){align-self:flex-end}
+.pnode b{font-size:14px;font-weight:600;display:flex;gap:8px;align-items:center}
+.pnode small{font-family:var(--f-mono);font-size:11.5px;color:var(--muted)}
+.pnode.on{border-color:var(--accent);background:var(--tint);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
+.chip{font-family:var(--f-mono);font-size:10px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;padding:1px 6px;border-radius:5px;border:1px solid var(--line);color:var(--muted)}
+.chip.plan{border-style:dashed;color:var(--warn);border-color:var(--warn)}
+.edge{fill:none;stroke:var(--line);stroke-width:2}
+.edge.hot{stroke:var(--accent)}
+.pkt{fill:var(--accent)}
+.handle-line{stroke:var(--muted);stroke-width:1;stroke-dasharray:3 3;fill:none}
+.handle{fill:var(--surface);stroke:var(--muted);stroke-width:1.2}
+.pipe-log{font-family:var(--f-mono);font-size:12px;color:var(--muted);background:var(--sunk);border-radius:8px;padding:8px 10px;min-height:1.6em;overflow-x:auto;white-space:nowrap}
+.pipe-log b{color:var(--accent);font-weight:500}
+
+/* phone */
+.stage{display:flex;flex-direction:column;align-items:center;gap:14px;min-width:0}
+.stage-label{display:flex;gap:8px;align-items:center}
+.pulse{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 50%,transparent)}100%{box-shadow:0 0 0 10px transparent}}
+.phone{width:300px;max-width:100%;height:620px;background:var(--bezel);border:1px solid var(--bezel-edge);padding:11px;position:relative;box-shadow:0 30px 60px -20px rgb(0 0 0 / .35),0 0 0 1px rgb(255 255 255 / .04) inset;transition:border-radius .4s}
+body[data-platform="ios"] .phone{border-radius:50px}
+body[data-platform="android"] .phone{border-radius:38px}
+.screen{height:100%;background:var(--surface);overflow:hidden;position:relative;display:flex;flex-direction:column;font-family:var(--app-font);transition:border-radius .4s}
+body[data-platform="ios"] .screen{border-radius:40px}
+body[data-platform="android"] .screen{border-radius:28px}
+.cam{position:absolute;left:50%;transform:translateX(-50%);background:#000;z-index:5;transition:all .4s}
+body[data-platform="ios"] .cam{top:21px;width:92px;height:27px;border-radius:20px}
+body[data-platform="android"] .cam{top:20px;width:13px;height:13px;border-radius:50%}
+.status{display:flex;justify-content:space-between;align-items:center;padding:16px 26px 6px;font-size:13px;font-weight:600;height:44px;box-sizing:border-box;flex:none}
+body[data-platform="android"] .status{padding:14px 22px 6px;font-weight:500;font-size:12.5px}
+.status svg{height:11px;fill:currentColor}
+.sys{display:flex;gap:5px;align-items:center}
+.appbar{padding:6px 18px 6px;display:flex;align-items:center;gap:8px;flex:none}
+.appbar h4{margin:0;font-weight:700;transition:font-size .3s}
+body[data-platform="ios"] .appbar h4{font-size:30px;letter-spacing:-.02em}
+body[data-platform="android"] .appbar h4{font-size:22px;font-weight:500}
+.back{all:unset;cursor:pointer;color:var(--accent);font-size:15px;display:flex;align-items:center;gap:2px}
+.back[hidden]{display:none}
+.appbody{flex:1;overflow-y:auto;padding:4px 14px 12px;scrollbar-width:none}
+.appbody::-webkit-scrollbar{display:none}
+.app-sub{font-size:13px;color:var(--muted);margin:0 4px 12px}
+.tracks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+body[data-platform="ios"] .tracks{background:var(--sunk);border-radius:12px;overflow:hidden}
+body[data-platform="android"] .tracks{gap:8px}
+.track{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 12px;transition:background .15s,transform .1s}
+body[data-platform="ios"] .tracks li+li .track{border-top:1px solid var(--line)}
+body[data-platform="android"] .track{background:var(--sunk);border-radius:16px}
+.track:hover{background:var(--tint)}
+.track:active{transform:scale(.985)}
+.track:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.art{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,hsl(var(--h) 70% 58%),hsl(calc(var(--h) + 50) 65% 38%));position:relative}
+body[data-platform="android"] .art{border-radius:12px}
+.tmeta{display:flex;flex-direction:column;min-width:0}
+.tt{font-size:14.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ta{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lang{font-family:var(--f-mono);font-size:10.5px;padding:2px 6px;border-radius:5px;background:var(--tint);color:var(--accent);font-weight:500}
+.score{grid-column:2 / 4;height:3px;background:var(--line);border-radius:2px;overflow:hidden;margin-top:-4px}
+.score i{display:block;height:100%;background:var(--accent);width:0;transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.because{font-size:13px;color:var(--muted);margin:0 4px 10px}
+.because b{color:var(--fg)}
+.demo-note{font-size:11px;color:var(--muted);margin:12px 4px 0;font-family:var(--f-mono)}
+.loading{display:flex;flex-direction:column;gap:10px;padding:6px 4px}
+.sk{height:52px;border-radius:12px;background:linear-gradient(90deg,var(--sunk),var(--tint),var(--sunk));background-size:200% 100%;animation:sk 1.1s linear infinite}
+@keyframes sk{to{background-position:-200% 0}}
+.loading p{font-family:var(--f-mono);font-size:12px;color:var(--accent);margin:0 0 4px}
+.mini{flex:none;margin:0 10px 6px;display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 10px;background:var(--sunk);border:1px solid var(--line);transition:transform .35s cubic-bezier(.2,.9,.2,1),opacity .35s}
+body[data-platform="ios"] .mini{border-radius:14px}
+body[data-platform="android"] .mini{border-radius:18px}
+.mini.off{transform:translateY(16px);opacity:0;pointer-events:none}
+.mini .art{width:36px;height:36px}
+.mini .bar{grid-column:1 / -1;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
+.mini .bar i{display:block;height:100%;width:30%;background:var(--accent)}
+.pp{all:unset;cursor:pointer;width:30px;height:30px;display:grid;place-items:center;color:var(--fg)}
+.pp svg{width:16px;height:16px;fill:currentColor}
+.tabbar{flex:none;display:flex;justify-content:space-around;border-top:1px solid var(--line);padding:6px 6px 22px}
+body[data-platform="android"] .tabbar{border-top:0;background:var(--sunk);padding:10px 6px 20px}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px;color:var(--muted);flex:1}
+.tab .ic{width:22px;height:22px;display:grid;place-items:center;transition:background .3s}
+body[data-platform="android"] .tab .ic{width:54px;height:28px;border-radius:14px}
+body[data-platform="android"] .tab.on .ic{background:var(--tint)}
+.tab svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tab.on{color:var(--accent)}
+body[data-platform="android"] .tab.on{color:var(--fg)}
+body[data-platform="android"] .tab.on svg{stroke:var(--accent)}
+.homebar{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:110px;height:4px;border-radius:3px;background:var(--fg);opacity:.85}
+body[data-platform="android"] .homebar{width:90px;height:3.5px;opacity:.6}
+
+.stage-cap{max-width:340px;display:flex;flex-direction:column;gap:6px;text-align:center;align-items:center}
+.stage-cap .eyebrow{display:flex;gap:8px;align-items:center}
+.stage-cap p{margin:0;font-size:14px;color:var(--muted)}
+.stage-cap p b{color:var(--fg);font-weight:600}
+.stage-cap a{font-size:13px;color:var(--accent);text-decoration:none;font-weight:600}
+.stage-cap a:hover{text-decoration:underline}
+.where-m{display:none}
+@media (max-width:880px){.where-d{display:none}.where-m{display:inline}}
+.track{position:relative}
+.track.hint{animation:ring 1.6s ease-out infinite}
+@keyframes ring{0%{box-shadow:inset 0 0 0 0 transparent}50%{box-shadow:inset 0 0 0 2px var(--accent)}100%{box-shadow:inset 0 0 0 0 transparent}}
+.track.hint::after{content:"Tap to try";position:absolute;right:8px;top:4px;font-family:var(--f-mono);font-size:10px;font-weight:500;background:var(--accent);color:var(--surface);padding:1px 7px;border-radius:999px;z-index:2}
+
+/* sections */
+section.block{padding-block:72px;border-top:1px solid var(--line)}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:36px}
+.sec-head h2{font-size:clamp(32px,4.5vw,48px);font-weight:700}
+.sec-head p{margin:0;color:var(--muted);max-width:46ch}
+
+/* timeline */
+.tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.tl>li{display:grid;grid-template-columns:200px minmax(0,1fr);gap:32px;padding-block:28px;border-top:1px solid var(--line)}
+.tl>li:first-child{border-top:0;padding-top:0}
+.when{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.when time{font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums;color:var(--fg)}
+.kind{font-family:var(--f-mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;padding:2px 8px;border-radius:var(--btn-r);border:1px solid var(--line);color:var(--muted)}
+.kind.now{background:var(--tint);color:var(--accent);border-color:transparent}
+.what{display:flex;flex-direction:column;gap:12px;min-width:0}
+.what h3{font-size:24px;font-weight:700}
+.what .org{color:var(--muted);font-size:15px}
+.what ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;max-width:68ch}
+.feat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:4px}
+.feat div{background:var(--surface);border:1px solid var(--line);border-radius:var(--card-r);padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.feat b{font-size:15px}
+.feat span{font-size:13.5px;color:var(--muted)}
+.edu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:40px}
+.edu div{border:1px solid var(--line);border-radius:var(--card-r);padding:18px;display:flex;flex-direction:column;gap:4px;background:var(--surface)}
+.edu time{font-family:var(--f-mono);font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.edu b{font-family:var(--f-display);font-size:19px}
+@media (max-width:820px){.tl>li{grid-template-columns:1fr;gap:12px}.when{flex-direction:row;align-items:center}.feat,.edu{grid-template-columns:1fr}}
+
+/* projects */
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:var(--card-r);padding:20px;display:flex;flex-direction:column;gap:10px;min-width:0;transition:border-color .2s,transform .2s}
+.proj:hover{border-color:var(--accent);transform:translateY(-2px)}
+.proj.wide{grid-column:span 2}
+.proj .row{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.proj h3{font-size:20px;font-weight:700}
+.proj p{margin:0;font-size:14.5px;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
+.tags span{font-family:var(--f-mono);font-size:11px;color:var(--muted);background:var(--sunk);border-radius:5px;padding:2px 7px}
+.proj a.gh{font-family:var(--f-mono);font-size:12px;color:var(--accent);text-decoration:none}
+.proj a.gh:hover{text-decoration:underline}
+.award{font-family:var(--f-mono);font-size:11px;color:var(--accent)}
+@media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.grid{grid-template-columns:1fr}.proj.wide{grid-column:auto}}
+
+.skills{display:grid;grid-template-columns:160px minmax(0,1fr);gap:10px 28px;margin:0}
+.skills dt{font-family:var(--f-mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding-top:3px}
+.skills dd{margin:0;font-size:15px}
+@media (max-width:600px){.skills{grid-template-columns:1fr;gap:2px}.skills dd{margin-bottom:12px}}
+
+.email{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);border-radius:var(--btn-r);padding:4px 4px 4px 14px;background:var(--surface)}
+.email a{font-family:var(--f-mono);font-size:14px;text-decoration:none;user-select:all}
+.copy{all:unset;cursor:pointer;font-size:13px;font-weight:600;color:var(--accent);padding:6px 12px;border-radius:var(--btn-r);background:var(--tint)}
+.copy:focus-visible{outline:2px solid var(--accent)}
+footer{padding-block:72px 48px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:18px}
+footer h2{font-size:clamp(34px,5vw,56px);font-weight:800}
+.contact{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.fine{font-size:12.5px;color:var(--muted);font-family:var(--f-mono)}
+
+/* terminal */
+.term{position:fixed;inset:auto 0 0 0;z-index:50;padding:0 max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));pointer-events:none}
+.term-win{pointer-events:auto;max-width:760px;margin:0 auto;background:var(--bezel);color:#D8E1E8;border:1px solid var(--bezel-edge);border-radius:14px;box-shadow:0 30px 80px -10px rgb(0 0 0 / .5);font-family:var(--f-mono);font-size:13px;overflow:hidden;transform:translateY(0);transition:transform .3s cubic-bezier(.2,.9,.2,1)}
+.term[hidden]{display:block!important;visibility:hidden}
+.term[hidden] .term-win{transform:translateY(120%)}
+.term-bar{display:flex;align-items:center;gap:7px;padding:9px 12px;border-bottom:1px solid var(--bezel-edge);color:#8592A0;font-size:12px}
+.term-bar i{width:11px;height:11px;border-radius:50%;background:#3A424C;display:inline-block}
+.term-bar button{all:unset;cursor:pointer;margin-left:auto;color:#8592A0;padding:0 4px}
+.term-out{height:260px;overflow-y:auto;padding:12px 14px;white-space:pre-wrap;word-break:break-word;line-height:1.5}
+.term-out .p{color:var(--android-accent)}
+body[data-platform="ios"] .term-out .p{color:var(--ios-accent)}
+.term-out .dim{color:#7C8895}
+.term-in{display:flex;gap:8px;padding:0 14px 12px;align-items:center}
+.term-in label{color:var(--android-accent)}
+body[data-platform="ios"] .term-in label{color:var(--ios-accent)}
+.term-in input{all:unset;flex:1;color:#E8EEF3;caret-color:currentColor}
+
+@media (max-width:880px){.hero{grid-template-columns:1fr;gap:40px;padding-block:36px 56px}.stage{order:-1}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><i></i>rohan.dev</a>
+    <nav class="links" aria-label="Sections">
+      <a href="#demo">Demo</a><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="resume/">Résumé</a><a href="#contact">Contact</a>
+    </nav>
+    <div class="seg" role="group" aria-label="Platform style">
+      <button id="pfAndroid" type="button" aria-pressed="true" data-p="android">Android</button>
+      <button id="pfIos" type="button" aria-pressed="false" data-p="ios">iOS</button>
+    </div>
+    <button class="themebtn" id="themeBtn" type="button" aria-label="Switch to light mode"></button>
+    <button class="termbtn" id="termOpen" type="button" aria-label="Open terminal">&gt;_ ~</button>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+  <section class="hero" id="demo">
+    <div class="hero-copy">
+      <span class="eyebrow">Android &amp; iOS engineer · Audible</span>
+      <h1>Rohan<br><span>Subramaniam</span></h1>
+      <p class="lede">I build and ship features on Audible's <b>Android and iOS apps</b>, used by <b>millions of listeners</b>. I also like the systems behind the screen: data pipelines, recommendation models and LLM tooling.</p>
+      <ul class="facts">
+        <li><b>Now</b> · Audible, full-time</li>
+        <li>MS Computer Engineering · NYU Tandon</li>
+        <li>Kotlin · Compose · Java · Swift</li>
+      </ul>
+      <div class="ctas">
+        <a class="btn" href="#experience">See experience</a>
+        <button class="btn ghost" type="button" id="termOpen2">Open terminal</button>
+      </div>
+
+      <div class="pipe-panel" aria-label="Recommendation pipeline">
+        <div class="pipe-head">
+          <div><span class="eyebrow">What happens when you tap a song</span><h3>Music Recommender pipeline</h3></div>
+          <label class="chk"><input type="checkbox" id="handles"> Bézier handles</label>
+        </div>
+        <div class="pipe" id="pipe">
+          <svg id="pipeSvg" aria-hidden="true"></svg>
+          <div class="pnode"><b>Million Playlist Dataset</b><small>1M playlists · JSON slices</small></div>
+          <div class="pnode"><b>MinIO object store</b><small>S3-compatible · Docker</small></div>
+          <div class="pnode"><b>Pair generation</b><small>lyrics + co-occurrence → positive pairs</small></div>
+          <div class="pnode"><b>Embedding model</b><small>PyTorch · multilingual</small></div>
+          <div class="pnode"><b>Recs API <span class="chip plan">planned</span></b><small>top-k nearest tracks</small></div>
+        </div>
+        <div class="pipe-log" id="pipeLog" aria-live="polite">waiting · tap a song on the phone to send a request</div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="stage-cap">
+        <span class="eyebrow"><span class="pulse"></span>Live project demo</span>
+        <p><b>Multilingual Music Recommender</b>, a model I built with my mates from NYU that suggests songs across languages based on their lyrics. Tap a song on the phone and watch the request run through the pipeline <span class="where-d">on the left</span><span class="where-m">below</span>.</p>
+        <a href="#projects">Read about the project ↓</a>
+      </div>
+      <div class="phone" id="phone">
+        <div class="cam"></div>
+        <div class="screen">
+          <div class="status">
+            <span id="clock">9:41</span>
+            <span class="sys">
+              <svg viewBox="0 0 18 11"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="6" rx="1"/><rect x="10" y="2.5" width="3" height="8.5" rx="1"/><rect x="15" y="0" width="3" height="11" rx="1"/></svg>
+              <svg viewBox="0 0 24 11"><rect x="0.5" y="0.5" width="20" height="10" rx="3" fill="none" stroke="currentColor"/><rect x="2" y="2" width="14" height="7" rx="1.5"/><rect x="21.5" y="3.5" width="2" height="4" rx="1"/></svg>
+            </span>
+          </div>
+          <div class="appbar">
+            <button class="back" id="back" type="button" hidden aria-label="Back to Discover">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <h4 id="appTitle">Discover</h4>
+          </div>
+          <div class="appbody" id="appBody"></div>
+          <div class="mini off" id="mini">
+            <span class="art" id="miniArt"></span>
+            <span class="tmeta"><span class="tt" id="miniT"></span><span class="ta" id="miniA"></span></span>
+            <button class="pp" id="pp" type="button" aria-label="Pause"><svg viewBox="0 0 24 24" id="ppIc"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></button>
+            <span class="bar"><i id="miniBar"></i></span>
+          </div>
+          <div class="tabbar">
+            <span class="tab"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></span>Home</span>
+            <span class="tab on"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg></span>Discover</span>
+            <span class="tab"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 4v16M9 4v16M14 5l5 15"/></svg></span>Library</span>
+          </div>
+          <div class="homebar"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="experience">
+    <div class="sec-head">
+      <h2>Experience</h2>
+      <p>Shipping native Android and iOS at scale, plus the backend and data work behind it.</p>
+    </div>
+    <ol class="tl">
+      <li>
+        <div class="when"><time>Jun 2026 – Present</time><span class="kind now">Full-time</span></div>
+        <div class="what">
+          <div><h3>Software Development Engineer I</h3><div class="org">Audible (an Amazon company)</div></div>
+          <ul>
+            <li>Build and ship features for Audible's Android and iOS apps.</li>
+            <li>Work across both native stacks: Kotlin, Jetpack Compose and Java on Android, Swift on iOS.</li>
+            <li>Release to millions of customers.</li>
+          </ul>
+          <div class="feat">
+            <div><b>Android</b><span>Kotlin, Jetpack Compose, Java</span></div>
+            <div><b>iOS</b><span>Swift</span></div>
+            <div><b>Scale</b><span>Features released to millions of customers</span></div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="when"><time>Jun 2025 – Aug 2025</time><span class="kind">Internship</span></div>
+        <div class="what">
+          <div><h3>Software Development Intern</h3><div class="org">Audible · Newark, NJ</div></div>
+          <ul>
+            <li>Migrated legacy Android UI to Jetpack Compose, improving UI rendering efficiency by 20%.</li>
+            <li>Delivered customization and settings improvements released to millions of users in the August 21, 2025 Android update.</li>
+            <li>Built reusable UI components and new customization features, improving listener experience and developer productivity.</li>
+            <li>Owned end-to-end delivery with Product and Design, turning complex user workflows into fast, intuitive Compose interfaces.</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="when"><time>May 2023 – Jul 2023</time><span class="kind">Internship</span></div>
+        <div class="what">
+          <div><h3>Software Development Intern</h3><div class="org">Anvitech Solutions · Mumbai, India</div></div>
+          <ul>
+            <li>Engineered a full-stack e-commerce platform with secure payment gateway integration and localized currency support.</li>
+            <li>Tuned SQL queries and streamlined the transaction flow to reduce checkout friction at high volume.</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+    <div class="edu">
+      <div><time>Sep 2024 – May 2026</time><b>New York University, Tandon School of Engineering</b><span>Master of Science, Computer Engineering</span></div>
+      <div><time>Aug 2020 – May 2024</time><b>NMIMS, Mukesh Patel School of Technology</b><span>Bachelor of Technology, Computer Science</span></div>
+    </div>
+  </section>
+
+  <section class="block" id="projects">
+    <div class="sec-head">
+      <h2>Projects</h2>
+      <p>Pipelines, models and hardware. The music recommender powers the demo at the top of the page.</p>
+    </div>
+    <div class="grid">
+      <article class="proj wide">
+        <div class="row"><span class="eyebrow">Feb – May 2025</span><a class="chip" href="#demo" style="text-decoration:none">Try it at the top ↑</a></div>
+        <h3>Multilingual Music Recommender</h3>
+        <p>A team project at NYU. Data pipelines over the Million Playlist Dataset, using MinIO and Docker to simulate a cloud-native setup. Processes lyrics to generate positive training pairs for personalized discovery across languages.</p>
+        <div class="tags"><span>Python</span><span>PyTorch</span><span>Docker</span><span>MinIO</span></div>
+        <a class="gh" href="music/">Open project site →</a>
+      </article>
+      <article class="proj">
+        <span class="eyebrow">Sep – Dec 2025</span>
+        <h3>QwenNET</h3>
+        <p>Uses the Qwen LLM to detect anomalies in network traffic. An end-to-end pipeline turns raw traces into structured corpora for the model.</p>
+        <div class="tags"><span>PyTorch</span><span>Qwen</span><span>Scapy</span></div>
+      </article>
+      <article class="proj">
+        <div class="row"><span class="eyebrow">Aug 2023 – Apr 2024</span></div>
+        <h3>AI Task Automation Agent</h3>
+        <span class="award">2nd place · NMIMS Annual Project Competition</span>
+        <p>An autonomous agent with a React front end, built on Hugging Face models and a vector DB, that automates multi-step user workflows.</p>
+        <div class="tags"><span>Python</span><span>React</span><span>TypeScript</span><span>VectorDB</span></div>
+      </article>
+      <article class="proj">
+        <h3>MetroScan</h3>
+        <p>PySpark analysis of NYC subway ridership from 2020 to 2024: anomaly detection, station clustering and predictive models on MTA hourly data.</p>
+        <div class="tags"><span>PySpark</span><span>Jupyter</span></div>
+        <a class="gh" href="https://github.com/roncell/MetroScan" target="_blank" rel="noopener">github.com/roncell/MetroScan ↗</a>
+      </article>
+      <article class="proj">
+        <h3>Embedillo-Sentry</h3>
+        <p>A gesture-based lock on the STM32F429I Discovery board that records motion sequences from the IMU and recognizes them to authenticate.</p>
+        <div class="tags"><span>C</span><span>STM32</span><span>IMU</span></div>
+        <a class="gh" href="https://github.com/roncell/Embedillo-Sentry" target="_blank" rel="noopener">github.com/roncell/Embedillo-Sentry ↗</a>
+      </article>
+      <article class="proj wide">
+        <h3>Bézier Flow</h3>
+        <p>Visualizes and models quadratic and cubic Bézier curves for graphics, animation and motion planning. Turn on "Bézier handles" in the pipeline panel above to see the same curves at work.</p>
+        <div class="tags"><span>TypeScript</span><span>Graphics</span></div>
+        <a class="gh" href="bezier/">Open project site →</a>
+        <a class="gh" href="https://github.com/roncell/B-zier-flow" target="_blank" rel="noopener">github.com/roncell/B-zier-flow ↗</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="block" id="skills">
+    <div class="sec-head"><h2>Toolbox</h2></div>
+    <dl class="skills">
+      <dt>Mobile</dt><dd>Android (Kotlin, Jetpack Compose, Java), iOS (Swift)</dd>
+      <dt>Languages</dt><dd>Java, Kotlin, Python, C, C++, JavaScript, TypeScript, HTML/CSS</dd>
+      <dt>Frameworks</dt><dd>React, Next.js, TensorFlow, PyTorch, scikit-learn, Kafka</dd>
+      <dt>Data</dt><dd>PostgreSQL, MongoDB, MySQL, PySpark, MinIO</dd>
+      <dt>Cloud</dt><dd>AWS, Google Cloud, Microsoft Azure</dd>
+      <dt>Engineering</dt><dd>Data structures and algorithms, OOP, design patterns, unit testing with JUnit</dd>
+    </dl>
+  </section>
+
+  <footer id="contact">
+    <span class="eyebrow">Contact</span>
+    <h2>Let's build something people open every day.</h2>
+    <div class="contact">
+      <a class="btn" href="https://github.com/roncell" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/rohan236" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <span class="email"><a href="mailto:trosubra@audible.com" id="emailAddr">trosubra@audible.com</a><button type="button" class="copy" id="copyEmail">Copy</button></span>
+      <a class="btn ghost" href="resume/">Résumé ↗</a>
+    </div>
+    <p class="fine">Tip: press ~ anywhere for the terminal. Demo recommendations are sample output until the live model is connected.</p>
+  </footer>
+</main>
+
+<div class="term" id="term" hidden>
+  <div class="term-win" role="dialog" aria-label="Terminal">
+    <div class="term-bar"><i></i><i></i><i></i><span>rohan@portfolio: ~</span><button type="button" id="termClose" aria-label="Close terminal">esc ✕</button></div>
+    <div class="term-out" id="termOut"></div>
+    <div class="term-in"><label for="termIn">❯</label><input id="termIn" autocomplete="off" spellcheck="false" aria-label="Terminal command"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const body=document.body;
+
+/* ---------- platform ---------- */
+function setPlatform(p){
+  body.dataset.platform=p;
+  $$('.seg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.p===p));
+  $('#clock').textContent=p==='ios'?'9:41':'12:30';
+  try{localStorage.setItem('pf',p)}catch(e){}
+  requestAnimationFrame(layoutPipe);
+}
+let saved='android'; try{saved=localStorage.getItem('pf')||'android'}catch(e){}
+setPlatform(saved==='ios'?'ios':'android');
+$$('.seg button').forEach(b=>b.addEventListener('click',()=>setPlatform(b.dataset.p)));
+
+/* ---------- light / dark ---------- */
+const rootEl=document.documentElement, themeBtn=$('#themeBtn');
+const SUN='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+const MOON='<svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+const curTheme=()=>rootEl.dataset.theme==='light'||rootEl.dataset.theme==='dark'?rootEl.dataset.theme:(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+function paintThemeBtn(){const d=curTheme()==='dark';themeBtn.innerHTML=d?SUN:MOON;themeBtn.setAttribute('aria-label',d?'Switch to light mode':'Switch to dark mode');themeBtn.title=themeBtn.getAttribute('aria-label')}
+themeBtn.addEventListener('click',()=>{const t=curTheme()==='dark'?'light':'dark';rootEl.dataset.theme=t;try{localStorage.setItem('theme',t)}catch(e){}paintThemeBtn()});
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',paintThemeBtn);
+paintThemeBtn();
+
+/* ---------- data (sample output) ---------- */
+const seeds=[
+ {id:'despacito',title:'Despacito',artist:'Luis Fonsi ft. Daddy Yankee',lang:'ES',h:12,recs:[
+  ['Mi Gente','J Balvin, Willy William','ES',.91],['Taki Taki','DJ Snake ft. Selena Gomez, Ozuna','ES',.88],['Bailando','Enrique Iglesias','ES',.86],['Shape of You','Ed Sheeran','EN',.79],['Dilbar','Neha Kakkar','HI',.74]]},
+ {id:'tumhiho',title:'Tum Hi Ho',artist:'Arijit Singh',lang:'HI',h:330,recs:[
+  ['Channa Mereya','Arijit Singh','HI',.93],['Agar Tum Saath Ho','Alka Yagnik, Arijit Singh','HI',.90],['Kesariya','Arijit Singh','HI',.87],['Perfect','Ed Sheeran','EN',.78],['Kun Faya Kun','A.R. Rahman','HI',.76]]},
+ {id:'dynamite',title:'Dynamite',artist:'BTS',lang:'KO',h:280,recs:[
+  ['Butter','BTS','KO',.94],['How You Like That','BLACKPINK','KO',.87],['Levitating','Dua Lipa','EN',.85],['Ice Cream','BLACKPINK, Selena Gomez','KO',.83],['Kill This Love','BLACKPINK','KO',.80]]},
+ {id:'blinding',title:'Blinding Lights',artist:'The Weeknd',lang:'EN',h:200,recs:[
+  ['Save Your Tears','The Weeknd','EN',.95],['Levitating','Dua Lipa','EN',.88],["Don't Start Now",'Dua Lipa','EN',.87],['Dynamite','BTS','KO',.81],['As It Was','Harry Styles','EN',.80]]}
+];
+const hueOf=s=>{let h=0;for(const c of s)h=(h*31+c.charCodeAt(0))%360;return h};
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- phone app ---------- */
+const appBody=$('#appBody'), title=$('#appTitle'), back=$('#back'), mini=$('#mini');
+let busy=false, tried=false;
+function renderSeeds(){
+  title.textContent='Discover'; back.hidden=true;
+  appBody.innerHTML=`<p class="app-sub">Songs from my multilingual recommender. Tap one to get similar songs in other languages.</p>
+  <ul class="tracks">${seeds.map((s,i)=>`<li><button class="track${!tried&&i===0?' hint':''}" type="button" data-id="${s.id}">
+   <span class="art" style="--h:${s.h}"></span><span class="tmeta"><span class="tt">${esc(s.title)}</span><span class="ta">${esc(s.artist)}</span></span><span class="lang">${s.lang}</span></button></li>`).join('')}</ul>`;
+  appBody.querySelectorAll('.track').forEach(b=>b.addEventListener('click',()=>pick(b.dataset.id)));
+}
+async function pick(id){
+  if(busy)return; busy=true; tried=true;
+  const s=seeds.find(x=>x.id===id);
+  $('#miniT').textContent=s.title; $('#miniA').textContent=s.artist; $('#miniArt').style.setProperty('--h',s.h);
+  mini.classList.remove('off');
+  title.textContent='For you'; back.hidden=false;
+  appBody.innerHTML=`<div class="loading"><p id="ldTxt">sending request…</p>${'<div class="sk"></div>'.repeat(5)}</div>`;
+  await runPipeline(s);
+  appBody.innerHTML=`<p class="because">Because you played <b>${esc(s.title)}</b></p>
+  <ul class="tracks">${s.recs.map(r=>`<li><div class="track" style="cursor:default">
+   <span class="art" style="--h:${hueOf(r[0])}"></span><span class="tmeta"><span class="tt">${esc(r[0])}</span><span class="ta">${esc(r[1])}</span></span><span class="lang">${r[2]}</span>
+   <span class="score" title="similarity ${r[3].toFixed(2)}"><i data-w="${Math.round(r[3]*100)}"></i></span></div></li>`).join('')}</ul>
+  <p class="demo-note">sample output · live model coming soon</p>`;
+  requestAnimationFrame(()=>appBody.querySelectorAll('.score i').forEach(i=>i.style.width=i.dataset.w+'%'));
+  busy=false;
+}
+back.addEventListener('click',()=>{if(!busy)renderSeeds()});
+let playing=true;
+$('#pp').addEventListener('click',()=>{playing=!playing;
+  $('#ppIc').innerHTML=playing?'<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>':'<path d="M7 5l12 7-12 7z"/>';
+  $('#pp').setAttribute('aria-label',playing?'Pause':'Play')});
+let prog=30; setInterval(()=>{if(playing&&!mini.classList.contains('off')){prog=(prog+0.4)%100;$('#miniBar').style.width=prog+'%'}},200);
+renderSeeds();
+
+/* ---------- pipeline (cubic Bézier edges) ---------- */
+const pipe=$('#pipe'), svg=$('#pipeSvg'), log=$('#pipeLog'), NS='http://www.w3.org/2000/svg';
+let edges=[];
+function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e}
+function layoutPipe(){
+  const nodes=[...pipe.querySelectorAll('.pnode')], pr=pipe.getBoundingClientRect();
+  svg.innerHTML=''; edges=[];
+  const showH=$('#handles').checked;
+  for(let i=0;i<nodes.length-1;i++){
+    const a=nodes[i].getBoundingClientRect(), b=nodes[i+1].getBoundingClientRect();
+    const x1=a.left-pr.left+a.width/2, y1=a.bottom-pr.top, x2=b.left-pr.left+b.width/2, y2=b.top-pr.top;
+    const k=(y2-y1)*1.1, c1=[x1,y1+k], c2=[x2,y2-k];
+    const p=el('path',{d:`M${x1} ${y1} C${c1} ${c2} ${x2} ${y2}`,class:'edge'});
+    svg.appendChild(p); edges.push(p);
+    if(showH){
+      svg.appendChild(el('path',{d:`M${x1} ${y1} L${c1} M${x2} ${y2} L${c2}`,class:'handle-line'}));
+      [c1,c2].forEach(c=>svg.appendChild(el('circle',{cx:c[0],cy:c[1],r:3.5,class:'handle'})));
+    }
+  }
+}
+$('#handles').addEventListener('change',layoutPipe);
+new ResizeObserver(layoutPipe).observe(pipe);
+addEventListener('load',layoutPipe);
+if(document.fonts)document.fonts.ready.then(layoutPipe);
+
+function packet(path,ms,opacity){
+  return new Promise(res=>{
+    if(!path){res();return}
+    const len=path.getTotalLength(), c=el('circle',{r:opacity<1?2.5:4,class:'pkt',opacity});
+    svg.appendChild(c);
+    if(reduce){c.remove();res();return}
+    const t0=performance.now();
+    (function f(t){const k=Math.min(1,(t-t0)/ms), e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2, pt=path.getPointAtLength(e*len);
+      c.setAttribute('cx',pt.x);c.setAttribute('cy',pt.y);
+      if(k<1)requestAnimationFrame(f);else{c.remove();res()}})(t0);
+  });
+}
+const wait=ms=>new Promise(r=>setTimeout(r,reduce?0:ms));
+async function runPipeline(s){
+  const nodes=[...pipe.querySelectorAll('.pnode')];
+  const steps=['reading playlist slices…','fetching objects from MinIO…','building positive pairs…','embedding & nearest-neighbour search…','returning top 5…'];
+  log.innerHTML=`<b>GET</b> /recs?seed=${s.id}&amp;k=5`;
+  for(let i=0;i<nodes.length;i++){
+    nodes[i].classList.add('on');
+    const ld=$('#ldTxt'); if(ld)ld.textContent=steps[i];
+    if(edges[i]){edges[i].classList.add('hot');await packet(edges[i],420,1)}else await wait(380);
+  }
+  log.innerHTML=`<b>200</b> · 5 tracks · seed=${s.id} · demo replay`;
+  await wait(250);
+  nodes.forEach(n=>n.classList.remove('on')); edges.forEach(e=>e.classList.remove('hot'));
+}
+if(!reduce)setInterval(()=>{if(!busy&&edges.length&&!document.hidden)packet(edges[Math.floor(Math.random()*edges.length)],1400,.45)},900);
+
+/* ---------- copy email ---------- */
+$('#copyEmail').addEventListener('click',async e=>{
+  const b=e.currentTarget, t=$('#emailAddr').textContent;
+  try{await navigator.clipboard.writeText(t);b.textContent='Copied'}
+  catch(err){const r=document.createRange();r.selectNodeContents($('#emailAddr'));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected'}
+  setTimeout(()=>b.textContent='Copy',1600);
+});
+
+/* ---------- terminal ---------- */
+const term=$('#term'), out=$('#termOut'), inp=$('#termIn');
+const hist=[]; let hi=0;
+function print(html){out.insertAdjacentHTML('beforeend',html+'\n');out.scrollTop=out.scrollHeight}
+function openTerm(){term.hidden=false;setTimeout(()=>inp.focus(),50);if(!out.textContent)print('<span class="dim">Welcome. Type <b>help</b> to see commands.</span>')}
+function closeTerm(){term.hidden=true}
+const cmds={
+ help:()=>`whoami  ls  cat about.md  experience  projects  git log
+adb devices  xcrun simctl list  platform android|ios
+demo  contact  sudo hire-me  clear  exit`,
+ whoami:()=>'rohan · SDE I at Audible · Android & iOS',
+ ls:()=>'about.md  experience/  projects/  resume.pdf',
+ 'cat about.md':()=>'I build and ship Android and iOS features for millions of Audible listeners\nand enjoy the data and ML systems behind them.',
+ 'cat resume.pdf':()=>'<span class="dim">Open the interactive résumé from the Résumé link in the header.</span>',
+ experience:()=>{document.getElementById('experience').scrollIntoView({behavior:reduce?'auto':'smooth'});return 'Audible · SDE I · Android & iOS · Jun 2026–present\nAudible · SDE intern · Jun–Aug 2025\nAnvitech Solutions · SDE intern · May–Jul 2023'},
+ projects:()=>{document.getElementById('projects').scrollIntoView({behavior:reduce?'auto':'smooth'});return 'music-recommender  qwennet  task-agent  metroscan  embedillo-sentry  bezier-flow'},
+ 'git log':()=>`<span class="p">commit 7f3c9e1</span> (HEAD -> main)  Join Audible full-time as SDE I (Android + iOS)
+<span class="p">commit 5b20a4d</span>  Graduate NYU Tandon, MS Computer Engineering (May 2026)
+<span class="p">commit 3e81f07</span>  Ship QwenNET: LLM anomaly detection on network traces
+<span class="p">commit 2a9d6c4</span>  Ship Compose settings to millions in Aug 21, 2025 release
+<span class="p">commit 19c0b8e</span>  Start Audible internship (Jun 2025)
+<span class="p">commit 0d4e2aa</span>  Build multilingual music recommender on MPD
+<span class="p">commit 0a11f3c</span>  Init: B.Tech CS, NMIMS`,
+ 'adb devices':()=>'List of devices attached\nrohan-pixel\tdevice',
+ 'xcrun simctl list':()=>'== Devices ==\n-- iOS --\n    rohan-iphone (Booted)',
+ demo:()=>{closeTerm();document.getElementById('demo').scrollIntoView({behavior:reduce?'auto':'smooth'});setTimeout(()=>{renderSeeds();pick(seeds[Math.floor(Math.random()*seeds.length)].id)},500);return 'running demo…'},
+ 'sudo hire-me':()=>{setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:reduce?'auto':'smooth'}),700);return '[sudo] password for recruiter: ••••••••\n<span class="p">Access granted.</span> Opening contact…'},
+ contact:()=>'email     trosubra@audible.com\nlinkedin  linkedin.com/in/rohan236\ngithub    github.com/roncell',
+ clear:()=>{out.innerHTML='';return null},
+ exit:()=>{closeTerm();return null}
+};
+inp.addEventListener('keydown',e=>{
+  if(e.key==='Enter'){
+    const v=inp.value.trim(); inp.value=''; if(!v)return;
+    hist.push(v); hi=hist.length;
+    print(`<span class="p">❯</span> ${esc(v)}`);
+    let r;
+    const m=v.match(/^platform\s+(android|ios)$/i);
+    if(m){setPlatform(m[1].toLowerCase());r=`switched to ${m[1].toLowerCase()}`}
+    else if(cmds[v.toLowerCase()])r=cmds[v.toLowerCase()]();
+    else if(v.startsWith('sudo'))r='Nice try. Only <b>sudo hire-me</b> works here.';
+    else r=`command not found: ${esc(v)} · type <b>help</b>`;
+    if(r)print(r);
+  }else if(e.key==='ArrowUp'){if(hi>0){hi--;inp.value=hist[hi]}e.preventDefault()}
+  else if(e.key==='ArrowDown'){if(hi<hist.length-1){hi++;inp.value=hist[hi]}else{hi=hist.length;inp.value=''}e.preventDefault()}
+  else if(e.key==='Escape')closeTerm();
+});
+$('#termOpen').addEventListener('click',openTerm);
+$('#termOpen2').addEventListener('click',openTerm);
+$('#termClose').addEventListener('click',closeTerm);
+addEventListener('keydown',e=>{
+  const typing=/INPUT|TEXTAREA/.test(document.activeElement.tagName)&&document.activeElement!==inp;
+  if((e.key==='`'||e.key==='~')&&!typing){e.preventDefault();term.hidden?openTerm():closeTerm()}
+  else if(e.key==='Escape'&&!term.hidden)closeTerm();
+});
+})();
+</script>
+
+</body>
+</html>
