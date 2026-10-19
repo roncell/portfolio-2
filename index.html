@@ -121,7 +121,7 @@ section.block{padding-block:72px;border-top:1px solid var(--line)}
 .what h3{font-size:24px;font-weight:700}
 .what .org{color:var(--muted);font-size:15px}
 .what ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;max-width:68ch}
-.feat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:4px}
+.feat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:4px}
 .feat div{background:var(--surface);border:1px solid var(--line);border-radius:var(--card-r);padding:14px 16px;display:flex;flex-direction:column;gap:4px}
 .feat b{font-size:15px}
 .feat span{font-size:13.5px;color:var(--muted)}
@@ -142,6 +142,7 @@ section.block{padding-block:72px;border-top:1px solid var(--line)}
 .tags span{font-family:var(--f-mono);font-size:11px;color:var(--muted);background:var(--sunk);border-radius:5px;padding:2px 7px}
 .proj a.gh{font-family:var(--f-mono);font-size:12px;color:var(--accent);text-decoration:none}
 .proj a.gh:hover{text-decoration:underline}
+.links-row{display:flex;flex-wrap:wrap;gap:6px 18px}
 .award{font-family:var(--f-mono);font-size:11px;color:var(--accent)}
 @media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:600px){.grid{grid-template-columns:1fr}.proj.wide{grid-column:auto}}
@@ -200,7 +201,7 @@ footer h2{font-size:clamp(34px,5vw,56px);font-weight:800}
 
     <div class="hero-body">
       <div class="intro">
-        <p class="lede">I build and ship features on Audible's <b>Android and iOS apps</b>, used by <b>millions of listeners</b>. Off the clock I like the systems behind the screen: data pipelines, recommendation models, LLM tooling and the occasional curve editor.</p>
+        <p class="lede">I build and ship features on Audible's <b>Android and iOS apps</b>, used by <b>millions of listeners</b>. Off the clock I like the systems behind the screen: data pipelines, recommendation models and LLM tooling.</p>
         <ul class="facts">
           <li><b>Now</b> · Audible, full-time</li>
           <li>MS Computer Engineering · NYU Tandon</li>
@@ -241,7 +242,6 @@ ios      Swift</div><div><span class="p">❯</span> <span class="k">git log --on
           <div class="feat">
             <div><b>Android</b><span>Kotlin, Jetpack Compose, Java</span></div>
             <div><b>iOS</b><span>Swift</span></div>
-            <div><b>Scale</b><span>Features released to millions of customers</span></div>
           </div>
         </div>
       </li>
@@ -315,7 +315,7 @@ ios      Swift</div><div><span class="p">❯</span> <span class="k">git log --on
         <h3>Bézier Flow</h3>
         <p>A 3D cubic Bézier curve editor. Chain segments, drag control points in 3D and animate an object along the path at constant speed.</p>
         <div class="tags"><span>TypeScript</span><span>React</span><span>three.js</span><span>R3F</span><span>GSAP</span></div>
-        <a class="gh" href="https://github.com/roncell/B-zier-flow" target="_blank" rel="noopener">github.com/roncell/B-zier-flow ↗</a>
+        <div class="links-row"><a class="gh" href="https://b-zierflow.netlify.app" target="_blank" rel="noopener">Open live demo ↗</a><a class="gh" href="https://github.com/roncell/B-zier-flow" target="_blank" rel="noopener">github.com/roncell/B-zier-flow ↗</a></div>
       </article>
     </div>
   </section>
@@ -415,7 +415,7 @@ ${P('commit 0d4e2aa')}  Build multilingual music recommender at NYU
 ${P('commit 0a11f3c')}  Init: B.Tech CS, NMIMS`,
  'git log --oneline -3':()=>`${P('7f3c9e1')} Join Audible full-time as SDE I\n${P('5b20a4d')} Graduate NYU Tandon, MS Computer Engineering\n${P('2a9d6c4')} Ship Compose settings to millions`,
  experience:()=>{go('experience');return 'Audible · SDE I · Android & iOS · Jun 2026–present\nAudible · SDE intern · Jun–Aug 2025\nAnvitech Solutions · SDE intern · May–Jul 2023'},
- projects:()=>{go('projects');return 'music-recommender  qwennet  task-agent  metroscan  embedillo-sentry  bezier-flow'},
+ projects:()=>{go('projects');return 'music-recommender  qwennet  task-agent  metroscan  embedillo-sentry  bezier-flow\n<span class="dim">live: b-zierflow.netlify.app</span>'},
  resume:()=>'<span class="dim">Open the interactive résumé from the Résumé link in the header.</span>',
  'cat resume.pdf':()=>CMDS.resume(),
  'adb devices':()=>'List of devices attached\nrohan-pixel\tdevice',
